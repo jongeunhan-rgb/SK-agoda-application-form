@@ -222,20 +222,17 @@
   
   <form id="applicationForm">
     
-    <!-- 숙소 정보 -->
     <div class="section">
-      <div class="section-title">
-        <span class="icon">🏨</span> 숙소 정보
-      </div>
+      <div class="section-title"><span class="icon">🏨</span> 숙소 정보</div>
       
       <div class="form-row">
         <div class="form-group">
-          <label>숙소명 (국문/영문) <span class="req">*</span></label>
-          <input type="text" name="propertyName" placeholder="예: 서울호텔 / Seoul Hotel" required>
+          <label>숙소명 (국문) <span class="req">*</span></label>
+          <input type="text" name="propertyName" placeholder="예: 서울호텔" required>
         </div>
         <div class="form-group">
-          <label>숙소 번호 <span class="req">*</span></label>
-          <input type="text" name="propertyNumber" placeholder="숙소 번호 입력" required>
+          <label>숙소 전화번호 <span class="req">*</span></label>
+          <input type="tel" name="propertyNumber" placeholder="예: 02-1234-5678" required>
         </div>
       </div>
       
@@ -329,11 +326,8 @@
       </div>
     </div>
     
-    <!-- 요금제 설정 -->
     <div class="section rate-section">
-      <div class="section-title">
-        <span class="icon">🏷️</span> 요금제 설정
-      </div>
+      <div class="section-title"><span class="icon">🏷️</span> 요금제 설정</div>
       
       <div class="form-row">
         <div class="form-group">
@@ -381,85 +375,17 @@
       </div>
     </div>
     
-    <!-- 객실 정보 -->
     <div class="section">
-      <div class="section-title">
-        <span class="icon">🛏️</span> 객실 정보
-      </div>
-      
-      <div class="room-entry">
-        <div class="form-group">
-          <div class="room-number">1. 객실명 (국문/영문)</div>
-          <input type="text" name="room1Name" placeholder="객실명 입력">
-        </div>
-        <div class="form-group">
-          <label>총 객실 수</label>
-          <input type="number" name="room1Count" placeholder="0" min="0" style="width:100px">
-        </div>
-      </div>
-      <div class="room-entry">
-        <div class="form-group">
-          <div class="room-number">2. 객실명 (국문/영문)</div>
-          <input type="text" name="room2Name" placeholder="객실명 입력">
-        </div>
-        <div class="form-group">
-          <label>총 객실 수</label>
-          <input type="number" name="room2Count" placeholder="0" min="0" style="width:100px">
-        </div>
-      </div>
-      <div class="room-entry">
-        <div class="form-group">
-          <div class="room-number">3. 객실명 (국문/영문)</div>
-          <input type="text" name="room3Name" placeholder="객실명 입력">
-        </div>
-        <div class="form-group">
-          <label>총 객실 수</label>
-          <input type="number" name="room3Count" placeholder="0" min="0" style="width:100px">
-        </div>
-      </div>
-      <div class="room-entry">
-        <div class="form-group">
-          <div class="room-number">4. 객실명 (국문/영문)</div>
-          <input type="text" name="room4Name" placeholder="객실명 입력">
-        </div>
-        <div class="form-group">
-          <label>총 객실 수</label>
-          <input type="number" name="room4Count" placeholder="0" min="0" style="width:100px">
-        </div>
-      </div>
-      <div class="room-entry">
-        <div class="form-group">
-          <div class="room-number">5. 객실명 (국문/영문)</div>
-          <input type="text" name="room5Name" placeholder="객실명 입력">
-        </div>
-        <div class="form-group">
-          <label>총 객실 수</label>
-          <input type="number" name="room5Count" placeholder="0" min="0" style="width:100px">
-        </div>
-      </div>
-      <div class="room-entry">
-        <div class="form-group">
-          <div class="room-number">6. 객실명 (국문/영문)</div>
-          <input type="text" name="room6Name" placeholder="객실명 입력">
-        </div>
-        <div class="form-group">
-          <label>총 객실 수</label>
-          <input type="number" name="room6Count" placeholder="0" min="0" style="width:100px">
-        </div>
-      </div>
-      <div class="room-entry">
-        <div class="form-group">
-          <div class="room-number">7. 객실명 (국문/영문)</div>
-          <input type="text" name="room7Name" placeholder="객실명 입력">
-        </div>
-        <div class="form-group">
-          <label>총 객실 수</label>
-          <input type="number" name="room7Count" placeholder="0" min="0" style="width:100px">
-        </div>
-      </div>
+      <div class="section-title"><span class="icon">🛏️</span> 객실 정보</div>
+      <div class="room-entry"><div class="form-group"><div class="room-number">1. 객실명 (국문)</div><input type="text" name="room1Name" placeholder="객실명 입력"></div><div class="form-group"><label>총 객실 수</label><input type="number" name="room1Count" placeholder="0" min="0" style="width:100px"></div></div>
+      <div class="room-entry"><div class="form-group"><div class="room-number">2. 객실명 (국문)</div><input type="text" name="room2Name" placeholder="객실명 입력"></div><div class="form-group"><label>총 객실 수</label><input type="number" name="room2Count" placeholder="0" min="0" style="width:100px"></div></div>
+      <div class="room-entry"><div class="form-group"><div class="room-number">3. 객실명 (국문)</div><input type="text" name="room3Name" placeholder="객실명 입력"></div><div class="form-group"><label>총 객실 수</label><input type="number" name="room3Count" placeholder="0" min="0" style="width:100px"></div></div>
+      <div class="room-entry"><div class="form-group"><div class="room-number">4. 객실명 (국문)</div><input type="text" name="room4Name" placeholder="객실명 입력"></div><div class="form-group"><label>총 객실 수</label><input type="number" name="room4Count" placeholder="0" min="0" style="width:100px"></div></div>
+      <div class="room-entry"><div class="form-group"><div class="room-number">5. 객실명 (국문)</div><input type="text" name="room5Name" placeholder="객실명 입력"></div><div class="form-group"><label>총 객실 수</label><input type="number" name="room5Count" placeholder="0" min="0" style="width:100px"></div></div>
+      <div class="room-entry"><div class="form-group"><div class="room-number">6. 객실명 (국문)</div><input type="text" name="room6Name" placeholder="객실명 입력"></div><div class="form-group"><label>총 객실 수</label><input type="number" name="room6Count" placeholder="0" min="0" style="width:100px"></div></div>
+      <div class="room-entry"><div class="form-group"><div class="room-number">7. 객실명 (국문)</div><input type="text" name="room7Name" placeholder="객실명 입력"></div><div class="form-group"><label>총 객실 수</label><input type="number" name="room7Count" placeholder="0" min="0" style="width:100px"></div></div>
     </div>
     
-    <!-- 동의 및 서명 -->
     <div class="consent-section">
       <div class="consent-row">
         <input type="checkbox" id="agreeCheck" name="agreed" required>
@@ -477,19 +403,55 @@
   </form>
 </div>
 
-<div class="overlay" id="loadingOverlay">
-  <div class="spinner"></div>
-</div>
-
+<div class="overlay" id="loadingOverlay"><div class="spinner"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-// ============================================
-// 여기에 Google Apps Script 웹 앱 URL을 붙여넣으세요
-const APPS_SCRIPT_URL = "https://script.google.com/a/macros/agoda.com/s/AKfycbyG4O503P2d8kQ7E-wUaONaF3q3uYeU_6FB-RPrJvbtX39qdVI0qd-r_sdU506v7Zb8/exec";
-// ============================================
+var FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfBND7KCnNrnPwy-TS_oDtwPkJ7m_X4rGjABixP8cXM-iys-A/formResponse";
 
-const regionData = {
+var ENTRY_MAP = {
+  propertyName:    "entry.586383519",
+  propertyNumber:  "entry.1779460447",
+  ycsEmail1:       "entry.1093657140",
+  ycsEmail2:       "entry.1146658766",
+  kakaoEmail:      "entry.801628256",
+  contact1:        "entry.1092587688",
+  contact2:        "entry.619438996",
+  bizRegNumber:    "entry.1797968221",
+  sido:            "entry.2029651386",
+  sigungu:         "entry.579412541",
+  addressDetail:   "entry.1249173964",
+  zipCode:         "entry.1281303478",
+  cancelPolicy:    "entry.1295645349",
+  checkIn:         "entry.772920575",
+  checkOut:        "entry.1255722774",
+  propertyPolicy:  "entry.1078206259",
+  otaConsent:      "entry.664476767",
+  rateCancelPolicy:"entry.1525341990",
+  breakfast:       "entry.1856570946",
+  parking:         "entry.1231112586",
+  advanceBookingDays:"entry.1118343565",
+  minMaxStay:      "entry.2030100489",
+  specialNotes:    "entry.1534797525",
+  room1Name:       "entry.1849258598",
+  room1Count:      "entry.898996344",
+  room2Name:       "entry.619550635",
+  room2Count:      "entry.33640798",
+  room3Name:       "entry.2058558271",
+  room3Count:      "entry.1672546809",
+  room4Name:       "entry.794192936",
+  room4Count:      "entry.327666752",
+  room5Name:       "entry.847733533",
+  room5Count:      "entry.920837815",
+  room6Name:       "entry.2112923416",
+  room6Count:      "entry.1614081113",
+  room7Name:       "entry.944796880",
+  room7Count:      "entry.1616615244",
+  agreed:          "entry.504265630",
+  signature:       "entry.249136408"
+};
+
+var regionData = {
   "서울특별시": ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"],
   "부산광역시": ["강서구","금정구","기장군","남구","동구","동래구","부산진구","북구","사상구","사하구","서구","수영구","연제구","영도구","중구","해운대구"],
   "대구광역시": ["남구","달서구","달성군","동구","북구","서구","수성구","중구","군위군"],
@@ -509,8 +471,8 @@ const regionData = {
   "제주특별자치도": ["서귀포시","제주시"]
 };
 
-const sidoSelect = document.getElementById("sidoSelect");
-const sigunguSelect = document.getElementById("sigunguSelect");
+var sidoSelect = document.getElementById("sidoSelect");
+var sigunguSelect = document.getElementById("sigunguSelect");
 
 Object.keys(regionData).forEach(function(sido) {
   var opt = document.createElement("option");
@@ -553,55 +515,48 @@ document.getElementById("applicationForm").addEventListener("submit", function(e
   fd.forEach(function(value, key) { data[key] = value; });
   data.agreed = document.getElementById("agreeCheck").checked ? "Y" : "N";
   
+  var gFormData = new FormData();
+  for (var key in ENTRY_MAP) {
+    gFormData.append(ENTRY_MAP[key], data[key] || "");
+  }
+  
   var formRef = this;
-  var jsonStr = JSON.stringify(data);
   
-  function onSuccess() {
-    overlay.classList.remove("show");
-    btn.disabled = false;
-    btn.textContent = "신청서 제출";
-    showToast("신청서가 성공적으로 제출되었습니다!", "success");
-    formRef.reset();
-    sigunguSelect.innerHTML = '<option value="">시/군/구 선택</option>';
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  var sent = false;
+  if (navigator.sendBeacon) {
+    sent = navigator.sendBeacon(FORM_URL, gFormData);
   }
   
-  function onError() {
-    overlay.classList.remove("show");
-    btn.disabled = false;
-    btn.textContent = "신청서 제출";
-    showToast("제출 중 오류가 발생했습니다. 다시 시도해주세요.", "error");
+  if (sent) {
+    setTimeout(function() {
+      overlay.classList.remove("show");
+      btn.disabled = false;
+      btn.textContent = "신청서 제출";
+      showToast("신청서가 성공적으로 제출되었습니다!", "success");
+      formRef.reset();
+      sigunguSelect.innerHTML = '<option value="">시/군/구 선택</option>';
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 1500);
+  } else {
+    fetch(FORM_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: gFormData
+    }).then(function() {
+      overlay.classList.remove("show");
+      btn.disabled = false;
+      btn.textContent = "신청서 제출";
+      showToast("신청서가 성공적으로 제출되었습니다!", "success");
+      formRef.reset();
+      sigunguSelect.innerHTML = '<option value="">시/군/구 선택</option>';
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }).catch(function() {
+      overlay.classList.remove("show");
+      btn.disabled = false;
+      btn.textContent = "신청서 제출";
+      showToast("제출 중 오류가 발생했습니다. 다시 시도해주세요.", "error");
+    });
   }
-  
-  // 방법 1: fetch no-cors (가장 호환성 높음, 응답은 못 읽지만 전송은 됨)
-  // 방법 2: 실패 시 Image pixel 방식 폴백
-  
-  fetch(APPS_SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    cache: "no-cache",
-    headers: {
-      "Content-Type": "text/plain"
-    },
-    body: jsonStr,
-    keepalive: true
-  }).then(function() {
-    // no-cors에서는 응답을 읽을 수 없지만, 요청 자체는 전송됨
-    onSuccess();
-  }).catch(function(err) {
-    console.error("fetch failed, trying image fallback:", err);
-    // 폴백: URL 파라미터로 전송
-    try {
-      var img = new Image();
-      img.onload = onSuccess;
-      img.onerror = onSuccess; // Apps Script가 이미지를 반환하지 않으므로 onerror지만 데이터는 전송됨
-      img.src = APPS_SCRIPT_URL + "?data=" + encodeURIComponent(jsonStr) + "&t=" + Date.now();
-      // 5초 후 강제 성공 처리
-      setTimeout(onSuccess, 5000);
-    } catch(e2) {
-      onError();
-    }
-  });
 });
 </script>
 
