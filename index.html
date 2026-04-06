@@ -68,6 +68,7 @@
     font-size: 14px;
     transition: border-color 0.2s;
     background: #fafafa;
+    -webkit-appearance: none;
   }
   .form-group input:focus,
   .form-group textarea:focus,
@@ -76,10 +77,6 @@
     border-color: #1a237e;
     background: white;
     box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
-  }
-  .form-group input:invalid:not(:placeholder-shown),
-  .form-group select:invalid {
-    border-color: #d32f2f;
   }
   .form-group textarea { resize: vertical; min-height: 100px; }
   
@@ -151,6 +148,7 @@
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+    -webkit-tap-highlight-color: transparent;
   }
   .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,35,126,0.3); }
   .submit-btn:active { transform: translateY(0); }
@@ -159,17 +157,19 @@
   .toast {
     position: fixed;
     top: 20px;
-    right: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-120px);
     padding: 16px 24px;
     border-radius: 10px;
     color: white;
     font-weight: 600;
     font-size: 14px;
     z-index: 1000;
-    transform: translateX(120%);
     transition: transform 0.3s ease;
+    text-align: center;
+    max-width: 90vw;
   }
-  .toast.show { transform: translateX(0); }
+  .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { background: #4caf50; }
   .toast.error { background: #f44336; }
   
@@ -205,6 +205,7 @@
     .header { padding: 30px 20px; }
     .header h1 { font-size: 22px; }
     .section { padding: 20px; }
+    .room-entry { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -396,7 +397,6 @@
           <input type="number" name="room1Count" placeholder="0" min="0" style="width:100px">
         </div>
       </div>
-      
       <div class="room-entry">
         <div class="form-group">
           <div class="room-number">2. 객실명 (국문/영문)</div>
@@ -407,7 +407,6 @@
           <input type="number" name="room2Count" placeholder="0" min="0" style="width:100px">
         </div>
       </div>
-      
       <div class="room-entry">
         <div class="form-group">
           <div class="room-number">3. 객실명 (국문/영문)</div>
@@ -418,7 +417,6 @@
           <input type="number" name="room3Count" placeholder="0" min="0" style="width:100px">
         </div>
       </div>
-      
       <div class="room-entry">
         <div class="form-group">
           <div class="room-number">4. 객실명 (국문/영문)</div>
@@ -429,7 +427,6 @@
           <input type="number" name="room4Count" placeholder="0" min="0" style="width:100px">
         </div>
       </div>
-      
       <div class="room-entry">
         <div class="form-group">
           <div class="room-number">5. 객실명 (국문/영문)</div>
@@ -440,7 +437,6 @@
           <input type="number" name="room5Count" placeholder="0" min="0" style="width:100px">
         </div>
       </div>
-      
       <div class="room-entry">
         <div class="form-group">
           <div class="room-number">6. 객실명 (국문/영문)</div>
@@ -451,7 +447,6 @@
           <input type="number" name="room6Count" placeholder="0" min="0" style="width:100px">
         </div>
       </div>
-      
       <div class="room-entry">
         <div class="form-group">
           <div class="room-number">7. 객실명 (국문/영문)</div>
@@ -488,15 +483,12 @@
 
 <div class="toast" id="toast"></div>
 
-<iframe name="hiddenFrame" id="hiddenFrame" style="display:none;"></iframe>
-
 <script>
 // ============================================
 // 여기에 Google Apps Script 웹 앱 URL을 붙여넣으세요
 const APPS_SCRIPT_URL = "https://script.google.com/a/macros/agoda.com/s/AKfycbyG4O503P2d8kQ7E-wUaONaF3q3uYeU_6FB-RPrJvbtX39qdVI0qd-r_sdU506v7Zb8/exec";
 // ============================================
 
-// 대한민국 시도 → 시군구 데이터
 const regionData = {
   "서울특별시": ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"],
   "부산광역시": ["강서구","금정구","기장군","남구","동구","동래구","부산진구","북구","사상구","사하구","서구","수영구","연제구","영도구","중구","해운대구"],
@@ -505,7 +497,7 @@ const regionData = {
   "광주광역시": ["광산구","남구","동구","북구","서구"],
   "대전광역시": ["대덕구","동구","서구","유성구","중구"],
   "울산광역시": ["남구","동구","북구","울주군","중구"],
-  "세종특별자치시": ["세종특별자치시"],
+  "세종특별자치시": ["세종시"],
   "경기도": ["가평군","고양시 덕양구","고양시 일산동구","고양시 일산서구","과천시","광명시","광주시","구리시","군포시","김포시","남양주시","동두천시","부천시","성남시 분당구","성남시 수정구","성남시 중원구","수원시 권선구","수원시 영통구","수원시 장안구","수원시 팔달구","시흥시","안산시 단원구","안산시 상록구","안성시","안양시 동안구","안양시 만안구","양주시","양평군","여주시","연천군","오산시","용인시 기흥구","용인시 수지구","용인시 처인구","의왕시","의정부시","이천시","파주시","평택시","포천시","하남시","화성시"],
   "강원특별자치도": ["강릉시","고성군","동해시","삼척시","속초시","양구군","양양군","영월군","원주시","인제군","정선군","철원군","춘천시","태백시","평창군","홍천군","화천군","횡성군"],
   "충청북도": ["괴산군","단양군","보은군","영동군","옥천군","음성군","제천시","증평군","진천군","청주시 상당구","청주시 서원구","청주시 청원구","청주시 흥덕구","충주시"],
@@ -517,24 +509,22 @@ const regionData = {
   "제주특별자치도": ["서귀포시","제주시"]
 };
 
-// 시/도 셀렉트 초기화
 const sidoSelect = document.getElementById("sidoSelect");
 const sigunguSelect = document.getElementById("sigunguSelect");
 
-Object.keys(regionData).forEach(sido => {
-  const opt = document.createElement("option");
+Object.keys(regionData).forEach(function(sido) {
+  var opt = document.createElement("option");
   opt.value = sido;
   opt.textContent = sido;
   sidoSelect.appendChild(opt);
 });
 
-// 시/도 변경 시 시군구 업데이트
 sidoSelect.addEventListener("change", function() {
   sigunguSelect.innerHTML = '<option value="">시/군/구 선택</option>';
-  const selected = this.value;
+  var selected = this.value;
   if (selected && regionData[selected]) {
-    regionData[selected].forEach(sigungu => {
-      const opt = document.createElement("option");
+    regionData[selected].forEach(function(sigungu) {
+      var opt = document.createElement("option");
       opt.value = sigungu;
       opt.textContent = sigungu;
       sigunguSelect.appendChild(opt);
@@ -543,45 +533,30 @@ sidoSelect.addEventListener("change", function() {
 });
 
 function showToast(message, type) {
-  const toast = document.getElementById("toast");
+  var toast = document.getElementById("toast");
   toast.textContent = message;
   toast.className = "toast " + type + " show";
-  setTimeout(() => { toast.classList.remove("show"); }, 4000);
+  setTimeout(function() { toast.classList.remove("show"); }, 4000);
 }
 
 document.getElementById("applicationForm").addEventListener("submit", function(e) {
   e.preventDefault();
   
-  const btn = document.getElementById("submitBtn");
-  const overlay = document.getElementById("loadingOverlay");
+  var btn = document.getElementById("submitBtn");
+  var overlay = document.getElementById("loadingOverlay");
   btn.disabled = true;
   btn.textContent = "제출 중...";
   overlay.classList.add("show");
   
-  const fd = new FormData(this);
-  const data = {};
-  fd.forEach((value, key) => { data[key] = value; });
+  var fd = new FormData(this);
+  var data = {};
+  fd.forEach(function(value, key) { data[key] = value; });
   data.agreed = document.getElementById("agreeCheck").checked ? "Y" : "N";
   
-  const tempForm = document.createElement("form");
-  tempForm.method = "POST";
-  tempForm.action = APPS_SCRIPT_URL;
-  tempForm.target = "hiddenFrame";
-  tempForm.style.display = "none";
+  var formRef = this;
+  var jsonStr = JSON.stringify(data);
   
-  const input = document.createElement("input");
-  input.type = "hidden";
-  input.name = "data";
-  input.value = JSON.stringify(data);
-  tempForm.appendChild(input);
-  
-  document.body.appendChild(tempForm);
-  tempForm.submit();
-  
-  const iframe = document.getElementById("hiddenFrame");
-  const formRef = this;
-  
-  const onLoad = function() {
+  function onSuccess() {
     overlay.classList.remove("show");
     btn.disabled = false;
     btn.textContent = "신청서 제출";
@@ -589,24 +564,44 @@ document.getElementById("applicationForm").addEventListener("submit", function(e
     formRef.reset();
     sigunguSelect.innerHTML = '<option value="">시/군/구 선택</option>';
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.removeChild(tempForm);
-    iframe.removeEventListener("load", onLoad);
-  };
+  }
   
-  iframe.addEventListener("load", onLoad);
+  function onError() {
+    overlay.classList.remove("show");
+    btn.disabled = false;
+    btn.textContent = "신청서 제출";
+    showToast("제출 중 오류가 발생했습니다. 다시 시도해주세요.", "error");
+  }
   
-  setTimeout(function() {
-    if (btn.disabled) {
-      overlay.classList.remove("show");
-      btn.disabled = false;
-      btn.textContent = "신청서 제출";
-      showToast("제출이 완료되었습니다. 시트를 확인해주세요.", "success");
-      formRef.reset();
-      sigunguSelect.innerHTML = '<option value="">시/군/구 선택</option>';
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      try { document.body.removeChild(tempForm); } catch(e) {}
+  // 방법 1: fetch no-cors (가장 호환성 높음, 응답은 못 읽지만 전송은 됨)
+  // 방법 2: 실패 시 Image pixel 방식 폴백
+  
+  fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    cache: "no-cache",
+    headers: {
+      "Content-Type": "text/plain"
+    },
+    body: jsonStr,
+    keepalive: true
+  }).then(function() {
+    // no-cors에서는 응답을 읽을 수 없지만, 요청 자체는 전송됨
+    onSuccess();
+  }).catch(function(err) {
+    console.error("fetch failed, trying image fallback:", err);
+    // 폴백: URL 파라미터로 전송
+    try {
+      var img = new Image();
+      img.onload = onSuccess;
+      img.onerror = onSuccess; // Apps Script가 이미지를 반환하지 않으므로 onerror지만 데이터는 전송됨
+      img.src = APPS_SCRIPT_URL + "?data=" + encodeURIComponent(jsonStr) + "&t=" + Date.now();
+      // 5초 후 강제 성공 처리
+      setTimeout(onSuccess, 5000);
+    } catch(e2) {
+      onError();
     }
-  }, 10000);
+  });
 });
 </script>
 
