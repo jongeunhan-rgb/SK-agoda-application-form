@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아고다 입점 신청서</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; background: #f0f2f5; color: #333; }
+  
+  .header {
+    background: linear-gradient(135deg, #1a237e, #283593);
+    color: white;
+    padding: 40px 30px;
+    text-align: left;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; }
+  
+  .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+  
+  .section {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a237e;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #1a237e;
+  }
+  .section-title .icon { font-size: 22px; }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .form-row.three-col { grid-template-columns: 1fr 1fr 1fr; }
+  .form-row.single { grid-template-columns: 1fr; }
+  
+  .form-group { display: flex; flex-direction: column; }
+  .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 12px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+    background: #fafafa;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: #1a237e;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  
+  .room-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: end;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .room-entry:last-child { border-bottom: none; }
+  .room-number { font-weight: 600; color: #1a237e; font-size: 13px; margin-bottom: 6px; }
+  
+  .rate-section {
+    background: #f0faf0;
+    border-left: 4px solid #4caf50;
+  }
+  .rate-section .section-title { color: #2e7d32; border-bottom-color: #4caf50; }
+  
+  .notes-box {
+    background: #fff3f0;
+    border: 1.5px solid #ffccbc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+  }
+  .notes-box label { color: #d32f2f !important; font-weight: 700 !important; }
+  .notes-box textarea { border-color: #ffccbc; background: white; }
+  
+  .consent-section {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+  }
+  .consent-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .consent-row label { font-size: 15px; font-weight: 600; cursor: pointer; }
+  .consent-row input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+  
+  .signature-group { margin-top: 16px; }
+  .signature-group input {
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .submit-btn {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 16px;
+    background: linear-gradient(135deg, #1a237e, #283593);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,35,126,0.3); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  
+  .toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: 1000;
+    transform: translateX(120%);
+    transition: transform 0.3s ease;
+  }
+  .toast.show { transform: translateX(0); }
+  .toast.success { background: #4caf50; }
+  .toast.error { background: #f44336; }
+  
+  @media (max-width: 600px) {
+    .form-row, .form-row.three-col { grid-template-columns: 1fr; }
+    .header { padding: 30px 20px; }
+    .header h1 { font-size: 22px; }
+    .section { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <h1>아고다 입점 신청서</h1>
+  </div>
+</div>
+
+<div class="container">
+  <form id="applicationForm">
+    
+    <!-- 숙소 정보 -->
+    <div class="section">
+      <div class="section-title">
+        <span class="icon">🏨</span> 숙소 정보
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>숙소명 (국문/영문)</label>
+          <input type="text" name="propertyName" placeholder="예: 서울호텔 / Seoul Hotel" required>
+        </div>
+        <div class="form-group">
+          <label>숙소 번호</label>
+          <input type="text" name="propertyNumber" placeholder="숙소 번호 입력">
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>YCS 로그인/바우처 알림 이메일 (1)</label>
+          <input type="email" name="ycsEmail1" placeholder="example@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>YCS 로그인/바우처 알림 이메일 (2)</label>
+          <input type="email" name="ycsEmail2" placeholder="example@email.com">
+        </div>
+      </div>
+      
+      <div class="form-row three-col">
+        <div class="form-group">
+          <label>카카오 이메일</label>
+          <input type="email" name="kakaoEmail" placeholder="카카오 이메일">
+        </div>
+        <div class="form-group">
+          <label>연락처 (1)</label>
+          <input type="tel" name="contact1" placeholder="010-0000-0000" required>
+        </div>
+        <div class="form-group">
+          <label>연락처 (2)</label>
+          <input type="tel" name="contact2" placeholder="010-0000-0000">
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>사업자 등록번호</label>
+          <input type="text" name="bizRegNumber" placeholder="000-00-00000" required>
+        </div>
+        <div class="form-group">
+          <label>호텔주소 / 우편번호</label>
+          <input type="text" name="address" placeholder="주소 및 우편번호" required>
+        </div>
+      </div>
+      
+      <div class="form-row three-col">
+        <div class="form-group">
+          <label>취소 정책</label>
+          <input type="text" name="cancelPolicy" placeholder="예: 1일 전 무료취소">
+        </div>
+        <div class="form-group">
+          <label>체크인 시간</label>
+          <input type="time" name="checkIn" value="15:00">
+        </div>
+        <div class="form-group">
+          <label>체크아웃 시간</label>
+          <input type="time" name="checkOut" value="11:00">
+        </div>
+      </div>
+      
+      <div class="form-row single">
+        <div class="form-group">
+          <label>숙소에서 알립니다 / 숙소 정책</label>
+          <textarea name="propertyPolicy" placeholder="숙소 정책 및 안내사항을 입력해주세요"></textarea>
+        </div>
+      </div>
+      
+      <div class="form-row single">
+        <div class="form-group">
+          <label>타 OTA 컨텐츠 (사진) 활용 동의</label>
+          <select name="otaConsent">
+            <option value="">선택해주세요</option>
+            <option value="Y">Y (동의)</option>
+            <option value="N">N (비동의)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 요금제 설정 -->
+    <div class="section rate-section">
+      <div class="section-title">
+        <span class="icon">🏷️</span> 요금제 설정
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>취소 정책</label>
+          <input type="text" name="rateCancelPolicy" placeholder="요금제 취소 정책">
+        </div>
+        <div class="form-group">
+          <label>조식 / 주차 여부</label>
+          <input type="text" name="breakfastParking" placeholder="예: 조식 포함 / 주차 가능">
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>사전 예약 필요 최대 일수</label>
+          <input type="text" name="advanceBookingDays" placeholder="예: 30일">
+        </div>
+        <div class="form-group">
+          <label>최소/최대 숙박 기간</label>
+          <input type="text" name="minMaxStay" placeholder="예: 1박 ~ 30박">
+        </div>
+      </div>
+      
+      <div class="notes-box">
+        <div class="form-group">
+          <label>[주의] 특이사항</label>
+          <textarea name="specialNotes" placeholder="특이사항이 있으면 입력해주세요"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 객실 정보 -->
+    <div class="section">
+      <div class="section-title">
+        <span class="icon">🛏️</span> 객실 정보
+      </div>
+      
+      <div class="room-entry">
+        <div class="form-group">
+          <div class="room-number">1. 객실명 (국문/영문)</div>
+          <input type="text" name="room1Name" placeholder="객실명 입력">
+        </div>
+        <div class="form-group">
+          <label>총 객실 수</label>
+          <input type="number" name="room1Count" placeholder="0" min="0" style="width:100px">
+        </div>
+      </div>
+      
+      <div class="room-entry">
+        <div class="form-group">
+          <div class="room-number">2. 객실명 (국문/영문)</div>
+          <input type="text" name="room2Name" placeholder="객실명 입력">
+        </div>
+        <div class="form-group">
+          <label>총 객실 수</label>
+          <input type="number" name="room2Count" placeholder="0" min="0" style="width:100px">
+        </div>
+      </div>
+      
+      <div class="room-entry">
+        <div class="form-group">
+          <div class="room-number">3. 객실명 (국문/영문)</div>
+          <input type="text" name="room3Name" placeholder="객실명 입력">
+        </div>
+        <div class="form-group">
+          <label>총 객실 수</label>
+          <input type="number" name="room3Count" placeholder="0" min="0" style="width:100px">
+        </div>
+      </div>
+      
+      <div class="room-entry">
+        <div class="form-group">
+          <div class="room-number">4. 객실명 (국문/영문)</div>
+          <input type="text" name="room4Name" placeholder="객실명 입력">
+        </div>
+        <div class="form-group">
+          <label>총 객실 수</label>
+          <input type="number" name="room4Count" placeholder="0" min="0" style="width:100px">
+        </div>
+      </div>
+      
+      <div class="room-entry">
+        <div class="form-group">
+          <div class="room-number">5. 객실명 (국문/영문)</div>
+          <input type="text" name="room5Name" placeholder="객실명 입력">
+        </div>
+        <div class="form-group">
+          <label>총 객실 수</label>
+          <input type="number" name="room5Count" placeholder="0" min="0" style="width:100px">
+        </div>
+      </div>
+      
+      <div class="room-entry">
+        <div class="form-group">
+          <div class="room-number">6. 객실명 (국문/영문)</div>
+          <input type="text" name="room6Name" placeholder="객실명 입력">
+        </div>
+        <div class="form-group">
+          <label>총 객실 수</label>
+          <input type="number" name="room6Count" placeholder="0" min="0" style="width:100px">
+        </div>
+      </div>
+      
+      <div class="room-entry">
+        <div class="form-group">
+          <div class="room-number">7. 객실명 (국문/영문)</div>
+          <input type="text" name="room7Name" placeholder="객실명 입력">
+        </div>
+        <div class="form-group">
+          <label>총 객실 수</label>
+          <input type="number" name="room7Count" placeholder="0" min="0" style="width:100px">
+        </div>
+      </div>
+    </div>
+    
+    <!-- 동의 및 서명 -->
+    <div class="consent-section">
+      <div class="consent-row">
+        <input type="checkbox" id="agreeCheck" name="agreed" required>
+        <label for="agreeCheck">해당 내용을 동의합니다</label>
+      </div>
+      <div class="signature-group">
+        <div class="form-group">
+          <label style="text-align:center">서명</label>
+          <input type="text" name="signature" placeholder="이름을 입력해주세요 (서명 대체)" required>
+        </div>
+      </div>
+    </div>
+    
+    <button type="submit" class="submit-btn" id="submitBtn">신청서 제출</button>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================
+// 여기에 Google Apps Script 웹 앱 URL을 붙여넣으세요
+const APPS_SCRIPT_URL = "https://script.google.com/a/macros/agoda.com/s/AKfycbx2JLF8z9CG-xEHJ_tL4s_kjJd1wOxVT1bq4VemIszBob_DcST9J4VpgFq4psRGa0gr/exec";
+// ============================================
+
+function showToast(message, type) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.className = "toast " + type + " show";
+  setTimeout(() => { toast.classList.remove("show"); }, 4000);
+}
+
+document.getElementById("applicationForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "제출 중...";
+  
+  const fd = new FormData(this);
+  const data = {};
+  fd.forEach((value, key) => { data[key] = value; });
+  data.agreed = document.getElementById("agreeCheck").checked ? "Y" : "N";
+  
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    
+    showToast("신청서가 성공적으로 제출되었습니다!", "success");
+    this.reset();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    
+  } catch (err) {
+    showToast("제출 중 오류가 발생했습니다. 다시 시도해주세요.", "error");
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "신청서 제출";
+  }
+});
+</script>
+
+</body>
+</html>
