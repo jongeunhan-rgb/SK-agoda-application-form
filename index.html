@@ -437,16 +437,23 @@ document.getElementById("applicationForm").addEventListener("submit", async func
   data.agreed = document.getElementById("agreeCheck").checked ? "Y" : "N";
   
   try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+    // GET 방식으로 전송 (CORS 문제 우회)
+    const url = APPS_SCRIPT_URL + "?data=" + encodeURIComponent(JSON.stringify(data));
+    
+    const res = await fetch(url, {
+      method: "GET",
+      mode: "cors"
     });
     
-    showToast("신청서가 성공적으로 제출되었습니다!", "success");
-    this.reset();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const result = await res.json();
+    
+    if (result.result === "success") {
+      showToast("신청서가 성공적으로 제출되었습니다!", "success");
+      this.reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      showToast("제출 중 오류가 발생했습니다: " + (result.message || ""), "error");
+    }
     
   } catch (err) {
     showToast("제출 중 오류가 발생했습니다. 다시 시도해주세요.", "error");
