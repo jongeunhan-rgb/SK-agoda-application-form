@@ -1,0 +1,6 @@
+{
+  "name": "Agoda Partner Application Form",
+  "description": "아고다 파트너 입점 및 제휴를 위한 공식 신청서 (Google Sheets 연동)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
